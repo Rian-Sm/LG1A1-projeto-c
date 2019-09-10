@@ -4,10 +4,10 @@
 #include <stdio.h>
 
 //funções adjasentes
-void escolha-1();
-void escolha_2();
-void escolha_3();
-void escolha_4();
+void cadastrar();
+void view();
+void test();
+void sobre();
 
 //função principal
 int main () {
@@ -29,22 +29,50 @@ int main () {
 	
 	switch (choise) {
 		case 1 :{
-		 	void escolha-1();
+		 	cadastrar();
 			break;
 		}
-		case 2 :{ printf ("\nvoce escolheu ->2");
+		case 2 :{
+			view();
 			break;
 		}
-		case 3 :{ printf ("\nvoce escolheu ->3");
+		case 3 :{
+			test();
 			break;
 		}
-		case 4 :{ printf ("\nvoce escolheu ->4");
+		case 4 :{
+			sobre();
 			break;
 		}
 	}
 	return 0;
 }
 
-void escolha-1() {
-	 printf ("\nvoce escolheu ->1");
+//=============================================
+
+void cadastrar() 
+{
+	 printf ("\nvoce escolheu -> se cadastrar ");
 }
+
+//=============================================
+
+void view()
+{
+	printf ("\nvoce escolheu -> visualizar testes ja feitos\n\n");
+	
+}
+
+//=============================================
+
+void test()
+{
+	printf ("\nvoce escolheu -> fazer o teste");
+}
+
+//=============================================
+void sobre()
+{
+	printf ("\nvoce escolheu -> saber mais sobre o teste");
+}
+//=============================================
