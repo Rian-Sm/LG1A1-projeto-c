@@ -2,6 +2,11 @@
 #include <conio.h>
 #include <stdlib.h>
 #include <stdio.h>
+//dados do cadastro
+typedef struct {
+	char nome[100];
+	char prontuario[20];
+}ficha;
 
 //funções adjasentes
 void cadastrar();
@@ -48,14 +53,24 @@ int main () {
 	return 0;
 }
 
-//=============================================
+//=================user register==================
 
 void cadastrar() 
 {
+	
+	
 	 printf ("\nvoce escolheu -> se cadastrar ");
+	 
+	 FILE *arq_user;
+	 
+	 ficha usuario;
+	
+	 //arq_user = fopen ("cadastro/resultado.txt", "w");
+	 
+	 
 }
 
-//=============================================
+//==================user view=====================
 
 void view()
 {
@@ -63,14 +78,14 @@ void view()
 	
 }
 
-//=============================================
+//==================user test=====================
 
 void test()
 {
 	printf ("\nvoce escolheu -> fazer o teste");
 }
 
-//=============================================
+//===================test information==================
 void sobre()
 {
 	printf ("\nvoce escolheu -> saber mais sobre o teste");
