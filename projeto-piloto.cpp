@@ -2,11 +2,14 @@
 #include <conio.h>
 #include <stdlib.h>
 #include <stdio.h>
-//dados do cadastro
+//listas de dados
 typedef struct {
 	char nome[100];
 	char prontuario[20];
+	int choise;
 }ficha;
+// --- 
+
 
 //funções adjasentes
 void cadastrar();
@@ -57,17 +60,67 @@ int main () {
 
 void cadastrar() 
 {
+	ficha user;
+	FILE *arq_user;
 	
+	arq_user = fopen ("cadastro/resultado.txt", "w");
 	
-	 printf ("\nvoce escolheu -> se cadastrar ");
-	 
-	 FILE *arq_user;
-	 
-	 ficha usuario;
+	printf ("\n voce escolheu -> se cadastrar ");
 	
-	 //arq_user = fopen ("cadastro/resultado.txt", "w");
+	if (arq_user = NULL){
+		
+	printf ("\num novo arquivo foi criado com sucesso!!");
+	
+	printf ("\n digite seu nome -> ");
+	gets (user.nome);
 	 
+	printf ("\n agora digite seu prontuario -> ");
+	scanf ("%s", &user.prontuario);
+	
+	fprintf (arq_user, "%s %s", user.nome, user.prontuario);
 	 
+	fclose (arq_user); 
+	
+	}
+	
+	else {
+		
+		printf ("\nerro na criação de arquivo!!");
+		
+		printf ("\ngostaria de rescrever?");
+		printf ("\nsim ->1");
+		printf ("\nnão ->0");
+		
+		scanf ("%i", &user.choise);
+		
+		switch (user.choise){
+			case 1 :{	
+				
+				
+				arq_user = fopen ("cadastro/resultado.txt", "w");
+				
+				printf ("\n o arquivo vai ser rescrito");
+				printf ("\n digite seu nome -> ");
+				gets (user.nome);
+	 
+				printf ("\n agora digite seu prontuario -> ");
+				scanf ("%s", &user.prontuario);
+				
+	 			
+	 			
+				fclose (arq_user); 
+				
+				break;
+			}
+			case 2 : {
+				
+				printf ("o arquivo não vai ser modificado!");
+				
+				// como retornar a pagina??? DUVIDA PRINCIPAL
+				break;
+			}
+		}
+	}
 }
 
 //==================user view=====================
@@ -83,11 +136,15 @@ void view()
 void test()
 {
 	printf ("\nvoce escolheu -> fazer o teste");
+	
+	// ???
 }
 
 //===================test information==================
 void sobre()
 {
 	printf ("\nvoce escolheu -> saber mais sobre o teste");
+	
+	//como retornar a pagina??? DUVIDA PRINCIPAL
 }
-//=============================================
+//====================================== the end
