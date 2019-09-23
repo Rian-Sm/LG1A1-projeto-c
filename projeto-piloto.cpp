@@ -40,9 +40,7 @@ int main () {
 		cout << "\n=================================================";
 		cout << "\n escolha ->";
 		cin >> choise;
-	}
-		while(i == 1 || i ==2);
-		
+		i = 0;
 		switch(choise) 
 		{
 			
@@ -59,6 +57,8 @@ int main () {
 				break;
 			}
 			case 'f' :{
+				system("cls");
+				cout << "\n\n Obrigado por usar! ^^ \n\n";
 				break;
 			}
 			default :{
@@ -67,6 +67,8 @@ int main () {
 				break;
 			}
 		}
-
+	}
+		while(i == 1 || i ==2);
+		
 }
 
