@@ -125,3 +125,5 @@ int main ()
 	}			
 }
 
+//todos direitos reservados ao Rian Santos Macedo
+// email "dinamykg10@gmail.com"
