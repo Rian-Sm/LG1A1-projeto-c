@@ -6,7 +6,8 @@
 #include <string.h>
 
 using namespace std;
-//fotmulario
+
+//dados universais
 typedef struct {char name[20]; char prontuario[20];}ficha;
 
 //funções externas
@@ -14,29 +15,73 @@ void cadastrar();
 void view();
 void realizar();
 void sobre();
+//variaveis universais
+int i, bi ;
 
-int main () {
-	
+//função main
+int main ()
+{
+	char password[] = "master";
 	char choise;
+	char binary = 0;
 	ficha pessoa;
-	int i;
-	for(i=0 ; i < 1 ; ) 
-	{
-		system("cls");
+	
+	for(i=0 ; i <= 1 ; ) {
 		
-		cout << "\n\ndigite seu nome ->" << " ";
-		gets(pessoa.name);
+		if (i == 0){
+			system("cls");
+		}
+		else {
+		}
 		
-		cout << "\n digite seu prontuario ->" << " ";
-		cin >> pessoa.prontuario;
-		
-		cout << "\nseu nome e prontuario -> " << pessoa.name << pessoa.prontuario;
-		
-		
+		for(bi = 0 ; bi < 1 ;){
+			
+			cout << "\n\n digite seu nome ->" << " ";
+			gets(pessoa.name);
+			
+			if (strcmp(pessoa.name, password) == 0) //identificação da chave mestra
+			{
+				i = 2;
+				bi++;
+			}
+			else{ 
+				cout << "\n digite seu prontuario ->" << " ";
+				cin >> pessoa.prontuario;
+				
+				cout << "\nseu nome e prontuario -> " << pessoa.name << pessoa.prontuario;
+				
+				cout << "\n\n queres salvar o cadastro Y/N ->";
+				cin >> binary;
+				
+				
+				switch(binary) {
+			
+				
+					case 'y':
+					case 'Y': 
+						// abrir arquivo e salvar o breguejonsons
+						cout << "\ncadastro feito com sucesso!";
+						i = 1;
+						bi++;
+						break;
+					
+					case 'n':
+					case 'N': 
+						cout << "\nfalha no cadastro!";
+						i = 1;
+						bi++;
+						break;
+					
+					default:
+						cout << "\n erro na escolha de opição";
+						break;
+				}
+			}
+		}
 	}
-	int  i = 2;
+
 	do{
-		if(i == 2 ){
+		if(i == 3 ){
 			system("cls");
 		}
 		cout << "\n=================================================";
@@ -56,28 +101,27 @@ int main () {
 	
 	switch(choise) {
 	
-		case '1': {
+		case '1': 
 			cout << "\nescolheu a 1\n";	
 			break;
-		}
-		case '2' :{
+		
+		case '2' :
 			break;
-		}
-		case '3' :{
+		
+		case '3' :
 			break;
-		}
-		case '4' :{
+		
+		case '4' :
 			break;
-		}
-		case 'f' :{
-			break;
-		}
-		default :{
+		
+		case 'f' :
+			return 0;
+		
+		default :
 			cout << "\n\n erro na escolha \n\n";
 			i--;
-			cout << "numero = " << i;
-		}
-	}
-		
+			cout << "numero = " << i;	
+			break;		
+	}			
 }
 
