@@ -1,32 +1,32 @@
 // bibliotecas
-#include <conio.h>
-#include <stdlib.h>
 #include <stdio.h>
-#include <iostream>
+#include <stdlib.h>
+#include <conio.h>
 #include <string.h>
 
-using namespace std;
-
 //dados universais
-typedef struct {char name[20]; char prontuario[20];}ficha;
+typedef struct  { 
+char name[20]; 
+char prontuario[20];
+}ficha;
 
 //funções externas
-void cadastrar();
-void view();
-void realizar();
-void sobre();
+
 //variaveis universais
 int i, bi ;
 
 //função main
 int main ()
 {
-	char password[] = "master";
+	char password[20];
 	char choise;
-	char binary = 0;
+	char binary;
 	ficha pessoa;
 	
-	for(i=0 ; i <= 1 ; ) {
+	strcpy(password, "master");
+	
+	
+	for(i=0 ; i <= 1;  ) {
 		
 		if (i == 0){
 			system("cls");
@@ -34,9 +34,10 @@ int main ()
 		else {
 		}
 		
-		for(bi = 0 ; bi < 1 ;){
+		for(bi = 0 ; bi < 1 ; ){
 			
-			cout << "\n\n digite seu nome ->" << " ";
+			printf ("\n\n digite seu nome -> ");
+			fflush (stdin);
 			gets(pessoa.name);
 			
 			if (strcmp(pessoa.name, password) == 0) //identificação da chave mestra
@@ -45,35 +46,35 @@ int main ()
 				bi++;
 			}
 			else{ 
-				cout << "\n digite seu prontuario ->" << " ";
-				cin >> pessoa.prontuario;
+				printf ("\n digite seu prontuario -> ");
+				fflush (stdin);
+				scanf ("%s", &pessoa.prontuario);
 				
-				cout << "\nseu nome e prontuario -> " << pessoa.name << pessoa.prontuario;
+				printf ("\nseu nome e prontuario -> %s - %s", pessoa.name, pessoa.prontuario);
 				
-				cout << "\n\n queres salvar o cadastro Y/N ->";
-				cin >> binary;
-				
+				printf ("\n\n queres salvar o cadastro Y/N -> ");
+				fflush (stdin);
+				scanf  ("%c", &binary) ;
 				
 				switch(binary) {
-			
-				
+		
 					case 'y':
 					case 'Y': 
 						// abrir arquivo e salvar o breguejonsons
-						cout << "\ncadastro feito com sucesso!";
+						printf ("\ncadastro feito com sucesso!");
 						i = 1;
 						bi++;
 						break;
 					
 					case 'n':
 					case 'N': 
-						cout << "\nfalha no cadastro!";
+						printf ("\nfalha no cadastro!");
 						i = 1;
 						bi++;
 						break;
 					
 					default:
-						cout << "\n erro na escolha de opição";
+						printf ("\n erro na escolha de opição");
 						break;
 				}
 			}
@@ -84,17 +85,17 @@ int main ()
 		if(i == 3 ){
 			system("cls");
 		}
-		cout << "\n=================================================";
-		cout << "\n       TESTE DOS SISTEMAS REPRESENTACIONIS";
-		cout << "\n=================================================";
-		cout << "\n            1. CADASTRAR QUETIONARIO";
-		cout << "\n            2. VISUALIZAR QUESIONARIO";
-		cout << "\n            3. REALIZAR TESTE";
-		cout << "\n            4. SOBRE O TESTE";
-		cout << "\n            F. FIM";
-		cout << "\n=================================================";
-		cout << "\n escolha ->";
-		cin >> choise;
+		printf ("\n=================================================");
+		printf ("\n       TESTE DOS SISTEMAS REPRESENTACIONIS");
+		printf ("\n=================================================");
+		printf ("\n            1. CADASTRAR QUETIONARIO");
+		printf ("\n            2. VISUALIZAR QUESIONARIO");
+		printf ("\n            3. REALIZAR TESTE");
+		printf ("\n            4. SOBRE O TESTE");
+		printf ("\n            F. FIM");
+		printf ("\n=================================================");
+		printf ("\n escolha ->");
+		scanf ("%c", &choise) ;
 		i++;
 	}
 	while(i <=2 );
@@ -102,7 +103,7 @@ int main ()
 	switch(choise) {
 	
 		case '1': 
-			cout << "\nescolheu a 1\n";	
+			printf ("\nescolheu a 1\n");	
 			break;
 		
 		case '2' :
@@ -118,9 +119,9 @@ int main ()
 			return 0;
 		
 		default :
-			cout << "\n\n erro na escolha \n\n";
+			printf ("\n\n erro na escolha \n\n");
 			i--;
-			cout << "numero = " << i;	
+			printf ("numero =  %i", i);	
 			break;		
 	}			
 }
