@@ -11,7 +11,11 @@ char prontuario[20];
 }ficha;
 
 //funções externas
-
+void inDados(); //em observação...
+void cadaster ();
+void view ();
+void toBuild ();
+void info ();
 //variaveis universais
 int i, bi ;
 
@@ -26,23 +30,27 @@ int main ()
 	strcpy(password, "master");
 	
 	
-	for(i=0 ; i <= 1;  ) {
+	for(i=0 ; i <= 2;  ) {
 		
-		if (i == 0){
+		if (i == 1){
 			system("cls");
+			printf ("\n cadastro feito com sucesso!");
 		}
-		else {
+		else if (i == 2){
+			system("cls");
+			printf ("\n falha no cadastro!");
 		}
 		
 		for(bi = 0 ; bi < 1 ; ){
 			
-			printf ("\n\n digite seu nome -> ");
+			printf ("\n\n   =================    PREENCHA SEUS DADOS    ================= ");
+			printf ("\n\n   digite seu nome -> ");
 			fflush (stdin);
 			gets(pessoa.name);
 			
 			if (strcmp(pessoa.name, password) == 0) //identificação da chave mestra
 			{
-				i = 2;
+				i = 3;
 				bi++;
 			}
 			else{ 
@@ -61,15 +69,13 @@ int main ()
 					case 'y':
 					case 'Y': 
 						// abrir arquivo e salvar o breguejonsons
-						printf ("\ncadastro feito com sucesso!");
 						i = 1;
 						bi++;
 						break;
 					
 					case 'n':
 					case 'N': 
-						printf ("\nfalha no cadastro!");
-						i = 1;
+						i = 2;
 						bi++;
 						break;
 					
