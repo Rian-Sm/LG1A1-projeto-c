@@ -9,6 +9,8 @@ using namespace std;
 typedef struct {
 	char nome[20];
 	char prontuario[20];
+	char save[100];
+	int tamanhoSTR;
 }ficha;
 //variaveis universais
 int i, bi, n;
@@ -20,7 +22,6 @@ int main() {
 	char binary = 0;
 	ficha pessoa;
 	FILE *arq;
-	char nomeA[50];
 
 	for(i=0 ; i<1 ; ){
 		
@@ -44,13 +45,23 @@ int main() {
 			cout << "\n digite seu prontuario ->";
 			cin >> pessoa.prontuario;
 			
-			arq = fopen ("Resultado_%s_%s.txt","w");pessoa.nome, pessoa.prontuario;
+			strcpy(pessoa.save, "RESULTADO_");
+			
+			pessoa.tamanhoSTR = strlen(pessoa.nome);
+			strncat(pessoa.save, pessoa.nome, pessoa.tamanhoSTR);
+			strcat(pessoa.save, "_");
+			pessoa.tamanhoSTR = strlen(pessoa.prontuario);
+			strncat(pessoa.save, pessoa.prontuario, pessoa.tamanhoSTR);
+			
+			arq = fopen (pessoa.save,"w");
 			
 			if (arq == NULL){
 				cout << "erro na criacao do arquivo!";
 			}
 			else {
 				cout << "arquivo criado com sucesso!";
+				
+				fclose(arq);
 			}
 		}
 		
