@@ -29,56 +29,89 @@ int main() {
 
 void cadaster(){
 	
-	char password[]="master";
+	char password[20];
 	char choice;
-	char binary = 0;
+	char binary;
 	ficha pessoa;
 	FILE *arq;
+	
+	strcpy(password, "master");
 
-	for(i=0 ; i<1 ; ){
+	for(i=0 ; i<=2 ; ){
 		
-		cout << "\n\n digite seu nome -> ";
-		fflush(stdin);
-		gets (pessoa.nome);
-		
-		n=0;
-		while (n < strlen(pessoa.nome)){
-			if (pessoa.nome[n] == ' '){
-				pessoa.nome[n] = '_';
-			}
-		n++;
+		if(i==1){
+			system("cls");
+			cout << "\n cadastro feito com sucesso!";
+		} else if (i==2){
+			system("cls");
+			cout << "\n falha no cadastro";
 		}
 		
-		if(strcmp(password, pessoa.nome) == 0){
-			cout << "\n parabens, saiu do codigo";
-			i++;
-		}
-		else{
-			cout << "\n digite seu prontuario ->";
-			cin >> pessoa.prontuario;
+		for(bi=0 ; bi<1 ;){
 			
-			strcpy(pessoa.save, "RESULTADO_");
+			cout << "\n\n=================    PREENCHA SEUS DADOS    ================= ";
+			cout << "\n\n digite seu nome -> ";
+			fflush(stdin);
+			gets (pessoa.nome);
 			
-			pessoa.tamanhoSTR = strlen(pessoa.nome);
-			strncat(pessoa.save, pessoa.nome, pessoa.tamanhoSTR);
-			strcat(pessoa.save, "_");
-			pessoa.tamanhoSTR = strlen(pessoa.prontuario);
-			strncat(pessoa.save, pessoa.prontuario, pessoa.tamanhoSTR);
-			
-			arq = fopen (pessoa.save,"w");
-			
-			if (arq == NULL){
-				cout << "erro na criacao do arquivo!";
+			if(strcmp(password, pessoa.nome) == 0){
+				cout << "\n parabens, saiu do codigo -> cadaster()";
+				i=3;
+				bi++;
 			}
-			else {
-				cout << "arquivo criado com sucesso!";
+			else{
+				cout << "\n digite seu prontuario ->";
+				cin >> pessoa.prontuario;
 				
-				fclose(arq);
+				
+				system("cls");
+				cout << "\nCONFIRME SEUS DADOS:\n" << "nome -> " << pessoa.nome << "\nprontuario -> " << pessoa.prontuario;
+				cout << "\n\ngostaria de salvar? Y/N -> ";
+				fflush(stdin);
+				cin >> binary;
+				
+				switch(binary){
+					case 'y':
+					case 'Y':
+						
+						n=0;
+						while (n < strlen(pessoa.nome)){
+							if (pessoa.nome[n] == ' '){
+								pessoa.nome[n] = '_';
+							}
+						n++;
+						}
+						strcpy(pessoa.save, "RESULTADO_");
+						pessoa.tamanhoSTR = strlen(pessoa.nome);
+						strncat(pessoa.save, pessoa.nome, pessoa.tamanhoSTR);
+						strcat(pessoa.save, "_");
+						pessoa.tamanhoSTR = strlen(pessoa.prontuario);
+						strncat(pessoa.save, pessoa.prontuario, pessoa.tamanhoSTR);
+								
+						arq = fopen (pessoa.save,"w");
+						if (arq == NULL){
+							bi++;
+							i=2;
+						} 
+						else {
+							bi++;
+							i=1;
+						}
+						fclose(arq);
+						break;
+					case 'n':
+					case 'N':
+						bi++;
+						i=2;
+						break;
+					default:
+						cout << "erro na escolha, tente de novo!!";
+						break;	
+				}	
 			}
 		}	
 	}
 }
-
 	/*
 	OUTRA OPÇÃO PARA A VARIAVEL PASSWORD:
 	
