@@ -14,8 +14,20 @@ typedef struct {
 }ficha;
 //variaveis universais
 int i, bi, n;
+//funções externas
+void inDados(); //em observação...
+void cadaster ();
+void view ();
+void toBuild ();
+void info ();
 // função de cadastro
 int main() {
+	
+	cadaster();
+
+}
+
+void cadaster(){
 	
 	char password[]="master";
 	char choice;
@@ -63,8 +75,7 @@ int main() {
 				
 				fclose(arq);
 			}
-		}
-		
+		}	
 	}
 }
 
