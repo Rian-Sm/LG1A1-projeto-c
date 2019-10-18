@@ -6,10 +6,10 @@
 
 #define MAX 
 //dados universais
-typedef struct  { 
+/*typedef struct  { 
 char nome[20]; 
 char prontuario[20];
-}ficha;
+}ficha;*/
 typedef struct {
     char pegunta[100];
     char item_1[100];
@@ -32,7 +32,7 @@ int main(){
     char password[20];
 	char choise;
 	char binary;
-	ficha pessoa;
+	//ficha pessoa;
 	
 do{
 		if(i == 0 ){
@@ -99,7 +99,7 @@ void cadaster (){
     for(n=0 ; n<perguntas ; n++){   
     printf("\n ================= CADASTRAR QUESTIONARIO =====================");
     printf(" digite a sua digite a pergunta -> "); 
-    fflush(stdin);    
+    fflush(stdin); gets (perguntas.)
     printf("digite a alternativa 1 -> ");
     printf("digite a alternativa 2 -> ");
     printf("digite a alternativa 3 -> ");
