@@ -15,10 +15,9 @@ typedef struct{
 void cadaster();
 //variaveis globais
 int i, n;
-#define MAX 1
+#define MAX 5
 ////////////////////////
 int main(){
-	
 	cadaster();
 }
 ////////////////////////
@@ -30,7 +29,7 @@ void cadaster(){
 	int tamanho;
 	char str[20];
 	
-	arq = fopen ("sistema_representacional/TESTE_SISTEMA_REPRESENTACIONAL.DAT", "w");
+	arq = fopen ("cadastro_sistema_representacional/TESTE_SISTEMA_REPRESENTACIONAL.DAT", "w");
 	
 	if(arq == NULL){
 		printf("erro na criação do arquivo");

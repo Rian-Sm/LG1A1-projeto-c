@@ -10,16 +10,15 @@ void cadaster_quest();
 void view ();
 void toBuild ();
 void info ();
+
 //variaveis globais
 int i, bi, n;
 
 ////////// função principal ////////////////
 int main(){
-    char password[20];
-	char choise;
-	char binary;
-	//ficha pessoa;
-	
+	char choice;
+
+	cadaster_user();
 do{
 		if(i == 0 ){
 			system("cls");
@@ -35,10 +34,10 @@ do{
 		printf ("\n=================================================");
 		printf ("\n escolha ->");
 		fflush(stdin);
-		scanf ("%c", &choise) ;
+		scanf ("%c", &choice) ;
 		i++;
 	
-	switch(choise) {
+	switch(choice) {
 	
 		case '1': 
 				cadaster_quest();
@@ -66,5 +65,12 @@ do{
 	}while(i <=2 );		
 }
 ////////////cadastro do questionário////////////////
-void cadaster_quest (){ 
+void cadaster_user (){ 
+	printf ("aqui é a zona de cadastro");
+	
+}
+void cadaster_quest(){
+	printf("vc logou no case1");
+//	system("cadaster_case1.exe");
+
 }
