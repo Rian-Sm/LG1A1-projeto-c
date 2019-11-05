@@ -7,8 +7,8 @@
 //funções externas
 void cadaster_user();
 void cadaster_quest();
-void view ();
-void toBuild ();
+void view();
+void exe_teste();
 void info ();
 
 //variaveis globais
@@ -40,17 +40,20 @@ do{
 	switch(choice) {
 	
 		case '1': 
-				cadaster_quest();
-				i=0;
+			cadaster_quest();
+			i=0;
 			break;
 		
 		case '2' :
+            view();
 			break;
 		
 		case '3' :
+            exe_teste();
 			break;
 		
 		case '4' :
+            info();
 			break;
 		
 		case 'f' :
@@ -67,10 +70,15 @@ do{
 ////////////cadastro do questionário////////////////
 void cadaster_user (){ 
 	printf ("aqui é a zona de cadastro");
-	
+	getch();
 }
 void cadaster_quest(){
 	printf("vc logou no case1");
 //	system("cadaster_case1.exe");
-
+}
+void view(){
+}
+void exe_teste(){
+}
+void info(){
 }
