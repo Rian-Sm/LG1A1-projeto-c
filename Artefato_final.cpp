@@ -8,6 +8,16 @@
 
 using namespace std;
 
+#define QTD 1
+// variaveis globais
+int i, bi, n;
+FILE *arq;
+
+typedef struct{
+	int nroFrase, cines, audi, visu, digi;
+	char frase[100], item_1[100], item_2[100], item_3[100], item_4[100];
+}questionario[QTD];
+
 // funções externas
 void menu(char *choice);
 void cadaster_user();
@@ -16,49 +26,45 @@ void view ();
 void toBuild ();
 void info ();
 
-// variaveis globais
-int i, bi, n;
-
-
-
 ////////// função principal ////////////////
-int main(){
+int main()
+{
 	setlocale (LC_ALL, "");
 	
 	char choice;
 
 	cadaster_user();
-do{
+	do{
+			
+		menu(&choice);
+			
+		switch(choice) {
 		
-	menu(&choice);
-		
-	switch(choice) {
-	
-		case '1': 
+			case '1': 
 				cadaster_quest();
-			break;
-		
-		case '2' :
-			break;
-		
-		case '3' :
-			break;
-		
-		case '4' :
-			break;
-		
-		case 'f' :
-			return 0;
-		
-		default :
-			printf ("\n\n erro na escolha \n\n");
-			i--;
-			printf ("numero =  %i", i);	
-			break;		
+				break;
+			
+			case '2' :
+				break;
+			
+			case '3' :
+				break;
+			
+			case '4' :
+				break;
+			
+			case 'f' :
+				return 0;
+			
+			default :
+				printf ("\n\n erro na escolha \n\n");
+				i--;
+				printf ("numero =  %i", i);	
+				break;		
 	}	
 	}while(i <=2 );		
 }
-///////////		menu						///////////
+///////////	  	menu									///////////
 void menu(char *choice){
 		printf ("\n=================================================");
 		printf ("\n       TESTE DOS SISTEMAS REPRESENTACIONIS");
@@ -73,11 +79,10 @@ void menu(char *choice){
 		fflush(stdin);
 		cin >> *choice;
 }
-///////////		cadastro do questionário	///////////
+///////////		cadastro do usuario || senha de acesso	///////////
 void cadaster_user (){ 
 	char password[20], nome[20], prontuario[20], save[50];
 	int auxstr;
-	FILE *arq;
 	
 	n = 0;
 	i = 0;
@@ -121,8 +126,36 @@ void cadaster_user (){
 		}
 	}
 }
+///////////		cadastro do questionário				///////////
 void cadaster_quest(){
-	printf("vc logou no case1");
-//	system("cadaster_case1.exe");
-
+	
+	char interface[200];
+	int tamanho;
+	char str[20];
+	questionario quest;
+	//quest.nroFrase = 0; quest.cines = 0; quest.audi = 0; quest.visu = 0, quest.digi = 0; 
+	
+	arq = fopen ("cadastro_sistema_representacional/TESTE_SISTEMA_REPRESENTACIONAL.DAT", "w");
+	
+	if(arq == NULL){
+		printf("erro na criação do arquivo");
+	}
+	else{
+		fprintf(arq, "NroFrase|\t\tfrase\t\t| cinestesico\t|\t\titem_1\t\t| auditivo\t|\t\titem_2\t\t| visual\t|\t\titem_3\t\t| digital\t|\t\titem_4\t\t\n");
+		printf("\n ================= CADASTRAR QUESTIONARIO =====================");
+		
+		for(i=0 ; i<QTD ; i++ ){
+			quest[i].nroFrase=0; quest[i].cines=0; quest[i].audi=0; quest[i].visu=0; quest[i].digi=0;
+		
+		    printf("\ndigite a sua digite a pergunta -> "); fflush(stdin); gets(quest[i].frase);
+		    printf("\ndigite a alternativa 1 -> ");fflush(stdin); gets(quest[i].item_1);
+		    printf("\ndigite a alternativa 2 -> ");fflush(stdin); gets(quest[i].item_2);
+		    printf("\ndigite a alternativa 3 -> ");fflush(stdin); gets(quest[i].item_3);
+		    printf("\ndigite a alternativa 4 -> ");fflush(stdin); gets(quest[i].item_4);
+		    
+		    fwrite(&quest, sizeof(questionario), 1, arq);
+	    }
+	fclose(arq);
+    }
+	
 }
