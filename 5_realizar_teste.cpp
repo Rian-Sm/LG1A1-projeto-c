@@ -43,7 +43,6 @@ int main(){
 				printf("erro na leitura do teste!! digite valores entre 4 e 1 que sejam diferentes.\n");
 				aux=0;
 			}
-			
 			printf("[%c] -> ", ascii ); fflush(stdin); scanf("%d", &quest[i].cines); ascii++;
 			printf("[%c] -> ", ascii ); fflush(stdin); scanf("%d", &quest[i].audi); ascii++;
 			printf("[%c] -> ", ascii ); fflush(stdin); scanf("%d", &quest[i].visu); ascii++;
