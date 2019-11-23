@@ -1,0 +1,3 @@
+nroFrase|		frase				|c|item_1					|a|item_2					|v|item_3					|d|item_4
+0	|aaaaaaaaa                                      |0|ssssssssssssssss                             |0|dddddddddddddddddddddddd                     |0|fffffffffffffffffffffffff                    |0|gggggggggggggggggggggggggggg
+1	|aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa              |0|ffffffffffffffffffffffffffffffffffffff       |0|ffffffffffffffffffffffffffffffff             |0|ssssssssssssssssssssssssssssssssss           |0|fffffffffffffffffffffffffffffffffff
