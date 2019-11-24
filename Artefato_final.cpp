@@ -8,7 +8,8 @@
 
 using namespace std;
 
-#define QTD 5
+#define QTD 3
+
 // variaveis globais
 int i, bi, n, j;
 FILE *arq, *arq_w;
@@ -24,7 +25,7 @@ void menu();
 void cadaster_quest();
 void cadaster_default();
 void view();
-void test();
+void test(char *str, char *s);
 void info();
 void comp(char *str, int *n);
 void gerar_save(char *n, char *p, char *s);
@@ -37,8 +38,7 @@ int main()
 	char choice;
 	
 	i=0, n=0;
-//------------ cadaster user na main 	-------------------	
-	
+//------------	cadaster user na main	-------------------	
 	while(i<1){
 		 n=0;
 		system("cls");
@@ -52,6 +52,9 @@ int main()
 		comp(nome, &auxnro);
 		
 		if(auxnro == 0){
+			strcpy(prontuario, "");
+			gerar_save(nome, prontuario, save);
+			arq = fopen (save, "w");
 			i++;
 		}else{
 			
@@ -87,12 +90,12 @@ int main()
 			else {
 				cout << "arquivo criado com sucesso!\n";	getch();
 				i++;
-				test();
+				test(nome, save);
 			}
 			fclose(arq);
 		}
 	}
-
+//------------	inicio do switch do menu	-------------------
 	do{
 		system("cls");
 		if(i==2){
@@ -109,9 +112,10 @@ int main()
 				n=0;
 				while(n<1){
 					system("cls");
-					printf("\n\n============ TELA DE CADASTRO DE QUESTÕES ============  ");
-					printf("\n\n======================================================\n");
-					printf("VOCE QUER QUESTOES DEFAULT?\n1-sim || 2-não\t-> "); fflush(stdin); scanf("%d", &bi);
+					printf("\n\n======================================================");
+					printf("\n============ TELA DE CADASTRO DE QUESTÕES ============");
+					printf("\n======================================================");
+					printf("\nVOCE QUER QUESTOES DEFAULT?\n1-sim || 2-não\t-> "); fflush(stdin); scanf("%d", &bi);
 					
 					switch(bi){
 						case 1:
@@ -138,7 +142,7 @@ int main()
 				break;
 			
 			case '3' :
-				test();
+				test(nome, save);
 				i=1;
 				break;
 			
@@ -157,7 +161,7 @@ int main()
 	}while(i <=2 );		
 }
 
-///////////	  	menu									///////////
+///////////	  	menu										///////////
 void menu(){
 		printf ("\n=================================================");
 		printf ("\n       TESTE DOS SISTEMAS REPRESENTACIONIS");
@@ -171,7 +175,7 @@ void menu(){
 		printf ("\n escolha ->");
 }
 
-///////////		cadastro do usuario || senha de acesso	///////////
+///////////		cadastro do usuario || senha de acesso		///////////
 void comp(char *str, int *n){
 	char pass[20], y[20];
 	strcpy(pass, "MASTER");
@@ -180,6 +184,7 @@ void comp(char *str, int *n){
 	*n = strcmp(y, pass);
 }
 
+															///////////
 void gerar_save(char *n, char *p, char *s){
 	int auxstr, i;
 	
@@ -199,8 +204,7 @@ void gerar_save(char *n, char *p, char *s){
 
 }
 
-
-///////////		cadastro do questionário 			///////////
+///////////		cadastro do questionário 					///////////
 void cadaster_quest(){
 	
 	questionario quest;
@@ -211,7 +215,8 @@ void cadaster_quest(){
 		printf("erro na criação do arquivo");
 	}
 	else{
-		printf("\n ================= CADASTRAR QUESTIONARIO =====================");
+		system("cls");
+		printf("\n=====================\tCADASTRAR QUESTIONARIO\t=====================");
 		
 		for(i=0 ; i<QTD ; i++ ){
 			quest.nroFrase=i; quest.cines=0; quest.audi=0; quest.visu=0; quest.digi=0;
@@ -228,81 +233,83 @@ void cadaster_quest(){
     }	
 }
 
-/////////// cadastro default					////////////
+///////////		cadastro default							////////////
 void cadaster_default(){
 	questionario quest;
 	FILE *arq;
-	
-	arq = fopen ("TESTE_SISTEMA_REPRESENTACIONAL.DAT", "w");
-	
+
 	system("cls");
-	printf("VOCÊ ESCOLHERU FAZER O CADASTRO DEFAULT!!\n");
-	
-	quest.nroFrase=1; quest.cines=0; quest.audi=0; quest.visu=0; quest.digi=0;
-	strcpy(quest.frase,"Eu tomo decisões importantes baseado em");
-	strcpy(quest.item_1, "intuição");
-	strcpy(quest.item_2, "o que me soa melhor");
-	strcpy(quest.item_3, "o que me parece melhor");
-	strcpy(quest.item_4, "um estudo preciso e minucioso do assunto");
-	fwrite(&quest, sizeof(questionario), 1, arq);
-	if(QTD==1){
-		printf("programa salvara %d pergunta\n", QTD);
-		fclose(arq);
-	}else
-	{
-		quest.nroFrase+=1; quest.cines=0; quest.audi=0; quest.visu=0; quest.digi=0; 					// inicio da segunda pergunta
-		strcpy(quest.frase,"Durante uma discussão eu sou mais influenciado por");
-		strcpy(quest.item_1, "o tom da voz da outra pessoa");
-		strcpy(quest.item_2, "se eu posso ou não ver o argumento da outra pessoa");
-		strcpy(quest.item_3, "a lógica do argumento da outra pessoa");
-		strcpy(quest.item_4, "se eu entro em contato ou não com os sentimentos reais do outro");
+	printf("\n\n==================================================");
+	printf("\nVOCÊ ESCOLHERU FAZER O CADASTRO DEFAULT!!\n");
+	printf("==================================================\n");
+	if(QTD>5){
+		printf("cadastro default salva até 5 perguntas!\nsalve mais que isso manualmente"); getch();
+	} else{
+		arq = fopen ("TESTE_SISTEMA_REPRESENTACIONAL.DAT", "w");
+		
+		quest.nroFrase=1; quest.cines=0; quest.audi=0; quest.visu=0; quest.digi=0;
+		strcpy(quest.frase,"Eu tomo decisões importantes baseado em");
+		strcpy(quest.item_1, "intuição");
+		strcpy(quest.item_2, "o que me soa melhor");
+		strcpy(quest.item_3, "o que me parece melhor");
+		strcpy(quest.item_4, "um estudo preciso e minucioso do assunto");
 		fwrite(&quest, sizeof(questionario), 1, arq);
-		if(QTD==2){
-			printf("programa salvara %d perguntas\n", QTD);
+		if(QTD==1){
 			fclose(arq);
-		} else
+		}else
 		{
-			quest.nroFrase+=1; quest.cines=0; quest.audi=0; quest.visu=0; quest.digi=0;					// inicio da terceira pergunta
-			strcpy(quest.frase,"Eu comunico mais facilmente o que se passa comigo");
-			strcpy(quest.item_1, "do modo como me visto e aparento");
-			strcpy(quest.item_2, "pelos sentimentos que compartilho");
-			strcpy(quest.item_3, "pelas palavras que escolho");
-			strcpy(quest.item_4, "pelo tom da minha voz");
+			quest.nroFrase+=1; quest.cines=0; quest.audi=0; quest.visu=0; quest.digi=0; 					// inicio da segunda pergunta
+			strcpy(quest.frase,"Durante uma discussão eu sou mais influenciado por");
+			strcpy(quest.item_1, "se eu entro em contato ou não com os sentimentos reais do outro"); 
+			strcpy(quest.item_2, "o tom da voz da outra pessoa"); 
+			strcpy(quest.item_3, "se eu posso ou não ver o argumento da outra pessoa"); 
+			strcpy(quest.item_4, "a lógica do argumento da outra pessoa");
 			fwrite(&quest, sizeof(questionario), 1, arq);
-			if(QTD==3){
-				printf("programa salvara %d perguntas\n", QTD);
+			if(QTD==2){
 				fclose(arq);
-			}else
+			} else
 			{
-				quest.nroFrase+=1; quest.cines=0; quest.audi=0; quest.visu=0; quest.digi=0;				// inicio da quarta pergunta
-				strcpy(quest.frase,"É muito fácil para mim");
-				strcpy(quest.item_1, "achar o volume e a sintonia ideais num sistema de som");
-				strcpy(quest.item_2, "selecionar o ponto mais relevante relativo a um assunto interessante");
-				strcpy(quest.item_3, "escolher os móveis mais confortáveis");
-				strcpy(quest.item_4, "escolher as combinações de cores mais ricas e atraentes");
+				quest.nroFrase+=1; quest.cines=0; quest.audi=0; quest.visu=0; quest.digi=0;					// inicio da terceira pergunta
+				strcpy(quest.frase,"Eu comunico mais facilmente o que se passa comigo");
+				strcpy(quest.item_1, "pelos sentimentos que compartilho");
+				strcpy(quest.item_2, "pelo tom da minha voz");	
+				strcpy(quest.item_3, "do modo como me visto e aparento");			
+				strcpy(quest.item_4, "pelas palavras que escolho");				
 				fwrite(&quest, sizeof(questionario), 1, arq);
-				if(QTD==4){
-					printf("programa salvara %d perguntas\n", QTD);
-					fclose(arq);	
+				if(QTD==3){
+					fclose(arq);
 				}else
 				{
-					quest.nroFrase+=1; quest.cines=0; quest.audi=0; quest.visu=0; quest.digi=0;			// inicio da quinta pergunta
-					strcpy(quest.frase,"Eu me percebo assim");
-					strcpy(quest.item_1, "se estou muito em sintonia com os sons dos ambientes");
-					strcpy(quest.item_2, "se sou muito capaz de raciocinar com fatos e dados novos");
-					strcpy(quest.item_3, "eu sou muito sensível à maneira como a roupa veste o meu corpo");
-					strcpy(quest.item_4, "eu respondo fortemente às cores e à aparência de uma sala");
+					quest.nroFrase+=1; quest.cines=0; quest.audi=0; quest.visu=0; quest.digi=0;				// inicio da quarta pergunta
+					strcpy(quest.frase,"É muito fácil para mim");
+					strcpy(quest.item_1, "escolher os móveis mais confortáveis"); 
+					strcpy(quest.item_2, "achar o volume e a sintonia ideais num sistema de som");
+					strcpy(quest.item_3, "escolher as combinações de cores mais ricas e atraentes");
+					strcpy(quest.item_4, "selecionar o ponto mais relevante relativo a um assunto interessante");
 					fwrite(&quest, sizeof(questionario), 1, arq);
+					if(QTD==4){
+						fclose(arq);	
+					}else
+					{
+						quest.nroFrase+=1; quest.cines=0; quest.audi=0; quest.visu=0; quest.digi=0;			// inicio da quinta pergunta
+						strcpy(quest.frase,"Eu me percebo assim");
+						strcpy(quest.item_1, "eu sou muito sensível à maneira como a roupa veste o meu corpo");
+						strcpy(quest.item_2, "se estou muito em sintonia com os sons dos ambientes");
+						strcpy(quest.item_3, "eu respondo fortemente às cores e à aparência de uma sala");
+						strcpy(quest.item_4, "se sou muito capaz de raciocinar com fatos e dados novos");
+						fwrite(&quest, sizeof(questionario), 1, arq);
+					}
 				}
 			}
 		}
+		printf("\nO PROGRAMA SALVOU %d PERGUNTAS\n", QTD);
+		printf("aperte algo para continuar...");
+		fclose(arq);
+		getch();
 	}
-	printf("programa salvara %d perguntas\n", QTD);
-	fclose(arq);
-	getch();
 }
 
-//////////	   	visualizar questionario			////////////
+///////////		visualizar questionario						////////////
 void view(){
 	questionario quest[QTD];
 	arq = fopen("TESTE_SISTEMA_REPRESENTACIONAL.DAT", "r");
@@ -325,18 +332,19 @@ void view(){
 	printf("feche o arquivo TXT ao terminar a operação\n");
 	system("TESTE_SISTEMA_REPRESENTACIONAL.TXT");
 }
-/////////		 realizar teste				////////////
-void test(){
+
+///////////realizar teste									////////////
+void test(char *str, char *s){
 	questionario quest[QTD];
-	FILE *arq;
-	int i, ascii, aux=0;
+	int i, ascii, aux=0 , soma_c=0, soma_a=0, soma_v=0, soma_d=0;
 	
 	arq = fopen("TESTE_SISTEMA_REPRESENTACIONAL.DAT", "r");
+	arq_w = fopen (s, "w");
 	
 	fread(quest, sizeof(questionario), QTD, arq);
-	
-	for(i=0; i<QTD ; i++){
 
+	for(i=0; i<QTD ; i++){
+		aux=0;
 		do{
 			ascii=97;
 			
@@ -345,39 +353,74 @@ void test(){
 			printf("[4] -> A que melhor te descreve\n");
 			printf("[3] -> A proxima a melhor descrição\n");
 			printf("[2] -> A proxima a menos descreve\n");
-			printf("[1] -> A que menos te descreve\n\n");
+			printf("[1] -> A que menos te descreve\n");
+			
+			if(aux==1){
+				printf("\n%d, %d, %d, %d não são valores validos!", quest[i].cines, quest[i].audi, quest[i].visu, quest[i].digi);
+				printf("\nerro na leitura do teste!! digite valores entre 4 e 1 que sejam diferentes.\n\n");
+				aux=0;
+			}
 			
 			printf("%d. %s:\n", quest[i].nroFrase, quest[i].frase);
 			printf("a) %s\n", quest[i].item_1);
 			printf("b) %s\n", quest[i].item_2);
 			printf("c) %s\n", quest[i].item_3);
 			printf("d) %s\n", quest[i].item_4);
-			if(aux==1){
-				printf("erro na leitura do teste!! digite valores entre 4 e 1 que sejam diferentes.\n");
-				aux=0;
-			}
 			
 			printf("[%c] -> ", ascii ); fflush(stdin); scanf("%d", &quest[i].cines); ascii++;
 			printf("[%c] -> ", ascii ); fflush(stdin); scanf("%d", &quest[i].audi); ascii++;
 			printf("[%c] -> ", ascii ); fflush(stdin); scanf("%d", &quest[i].visu); ascii++;
 			printf("[%c] -> ", ascii ); fflush(stdin); scanf("%d", &quest[i].digi);
 			if(quest[i].cines<0 || quest[i].audi<0 || quest[i].visu<0 || quest[i].digi<0 || quest[i].cines>5 || quest[i].audi>5 || quest[i].visu>5 || quest[i].digi>5 ||  quest[i].cines + quest[i].audi + quest[i].visu + quest[i].digi!=10 ){
-				printf("%d \n",quest[i].cines);
-				printf("%d \n",quest[i].audi);
-				printf("%d \n",quest[i].visu);
-				printf("%d \n",quest[i].digi);
 				aux++;
-				getch();
 			}else if(quest[i].cines!=quest[i].audi && quest[i].cines!=quest[i].visu && quest[i].cines!=quest[i].digi && quest[i].audi!=quest[i].visu && quest[i].audi!=quest[i].digi && quest[i].visu!=quest[i].digi){
 				aux=2;
 			} else{
-				
+				aux++;
 			}
-		}while(aux<2);	
+		}while(aux<2);
 	}
+	for(i=0 ; i<QTD ; i++){		
+		soma_c += quest[i].cines;
+		soma_a += quest[i].audi;
+		soma_v += quest[i].visu;
+		soma_d += quest[i].digi;
+	}
+	fprintf(arq_w,"============================================\t\tPERFIL REPRESENTACIONAL DE %-20s================================================", str);
+	fprintf(arq_w,"\n %d%c - CINESTÉSICO\t\t%d%c - AUDITIVO\t\t%d%c - VISUAL\t\t%d%c - DIGITAL\t\t", soma_c*2, 37, soma_a*2, 37, soma_v*2, 37, soma_d*2,37);
+	fprintf(arq_w,"\n=======================================================================================================================================================\n", str);
 	
+	fprintf(arq_w,"\nAlgumas pessoas captam melhor as mensagens do mundo exterior através da audição, são as pessoas chamadas auditivas.");
+	fprintf(arq_w,"\nOutras pessoas sentem necessidade de perguntar muito, necessitam de muitas informações e fatos. Estas são as digitais.");
+	fprintf(arq_w,"\nAs cinestésicas aprendem melhor por meio das sensações táteis, como o tato, a temperatura, a umidade, as sensações internas e as emoções.");
+	fprintf(arq_w,"\nJá as pessoas visuais aprendem melhor quando se valendo da visão.\n");
+	
+	if(soma_c>soma_a && soma_c>soma_v && soma_c>soma_d){
+		fprintf(arq_w,"\n=======================================================================================================================================================", str);
+		fprintf(arq_w,"\nSeu perfil é CINESTÉSICO\n");
+		fprintf(arq_w,"\n=======================================================================================================================================================", str);
+	} else if(soma_a>soma_c && soma_a>soma_v && soma_a>soma_d){
+		fprintf(arq_w,"\n=======================================================================================================================================================", str);
+		fprintf(arq_w,"Seu perfil é AUDITIVO\n");
+		fprintf(arq_w,"\n=======================================================================================================================================================", str);
+	} else if(soma_v>soma_c && soma_v>soma_a && soma_v>soma_d){
+		fprintf(arq_w,"\n=======================================================================================================================================================", str);
+		fprintf(arq_w,"\nSeu perfil é VISUAL\n");
+		fprintf(arq_w,"\n=======================================================================================================================================================", str);
+	} else if(soma_d>soma_c && soma_d>soma_a && soma_d>soma_v){
+		fprintf(arq_w,"\n=======================================================================================================================================================", str);
+		fprintf(arq_w,"\nSeu perfil é digital\n");
+		fprintf(arq_w,"\n=======================================================================================================================================================", str);
+	} else{
+		fprintf(arq_w,"\n=======================================================================================================================================================", str);
+		fprintf(arq_w,"\nSeu perfil é indescritivel!!!!");
+		fprintf(arq_w,"\n=======================================================================================================================================================", str);
+	}
+	fclose(arq);
+	fclose(arq_w);
 }
-// referencial teorico;
+
+///////////		referencial teorico							////////////
 void info(){
 	printf("feche o arquivo TXT ao terminar a operação\n");
 	system("REFERENCIAL_TEORICO.TXT");

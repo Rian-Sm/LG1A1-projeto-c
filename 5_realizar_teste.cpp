@@ -15,10 +15,11 @@ int main(){
 	setlocale(LC_ALL, " ");
 	
 	questionario quest[QTD];
-	FILE *arq;
-	int i, ascii, aux;
+	FILE *arq, *arq_w;
+	int i, ascii, aux, soma_c=0, soma_a=0, soma_v=0, soma_d=0;
 	
 	arq = fopen("TESTE_SISTEMA_REPRESENTACIONAL.DAT", "r");
+//	arq_w = fopen("TESTE_SISTEMA_REPRESENTACIONAL.TXT" , "w");
 	
 	fread(quest, sizeof(questionario), QTD, arq);
 	
@@ -57,12 +58,45 @@ int main(){
 				getch();
 				aux++;
 			}else if(quest[i].cines!=quest[i].audi && quest[i].cines!=quest[i].visu && quest[i].cines!=quest[i].digi && quest[i].audi!=quest[i].visu && quest[i].audi!=quest[i].digi && quest[i].visu!=quest[i].digi){
+
 				aux=2;
 			} else{
 				aux++;
 			}
 		}while(aux<2);	
 	}
+	for(i=0 ; i<QTD ; i++){		
+		soma_c += quest[i].cines;
+		soma_a += quest[i].audi;
+		soma_v += quest[i].visu;
+		soma_d += quest[i].digi;
+	}
+	printf("%d, %d - %d, %d - %d, %d - %d, %d\n", soma_c, soma_c*2, soma_a, soma_a*2, soma_v, soma_v*2, soma_d, soma_d*2);
+	
+	if(soma_c>soma_a && soma_c>soma_v && soma_c>soma_d){
+		printf("======================================\n");
+		printf("Seu perfil é CINESTÉSICO\n");
+		printf("======================================\n");
+	} else if(soma_a>soma_c && soma_a>soma_v && soma_a>soma_d){
+		printf("======================================\n");
+		printf("Seu perfil é AUDITIVO\n");
+		printf("======================================\n");
+	} else if(soma_v>soma_c && soma_v>soma_a && soma_v>soma_d){
+		printf("======================================\n");
+		printf("Seu perfil é VISUAL\n");
+		printf("======================================\n");
+	} else if(soma_d>soma_c && soma_d>soma_a && soma_d>soma_v){
+		printf("======================================\n");
+		printf("Seu perfil é digital\n");
+		printf("======================================\n");
+	} else{
+		printf("======================================\n");
+		printf("Seu perfil é indescritivel!!!!\n");
+		printf("======================================\n");
+	}
+	
+	fclose(arq);
+//	fclose(arq_w);
 	return 0;
 }
 
