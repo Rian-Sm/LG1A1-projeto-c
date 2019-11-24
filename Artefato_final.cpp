@@ -17,27 +17,30 @@ typedef struct{
 	int nroFrase, cines, audi, visu, digi;
 	char frase[100], item_1[100], item_2[100], item_3[100], item_4[100];
 }questionario;
+
 // funções prototipadas
+
 void menu();
-//int cadaster_comp(char *nome);
 void cadaster_quest();
 void cadaster_default();
 void view();
 void test();
 void info();
-
+void comp(char *str, int *n);
+void gerar_save(char *n, char *p, char *s);
 //////////		 função principal 		////////////////
 int main()
 {
 	setlocale (LC_ALL, "");
-	char password[20], nome[20], prontuario[20], save[50];
+	char nome[20], prontuario[20], save[50];
+	int auxstr, auxnro;
 	char choice;
-	int auxstr;
+	
 	i=0, n=0;
 //------------ cadaster user na main 	-------------------	
-	strcpy(password, "MASTER");
 	
 	while(i<1){
+		 n=0;
 		system("cls");
 		cout << "================= CADASTRO DE USUARIO =================";
 		cout << "\n\ndigite seu nome\t\t-> ";
@@ -45,8 +48,10 @@ int main()
 		fflush(stdin);
 		gets (nome);
 		strcpy(nome, strupr(nome));
-	
-		if(strcmp(password, nome)==0){
+		
+		comp(nome, &auxnro);
+		
+		if(auxnro == 0){
 			i++;
 		}else{
 			
@@ -54,32 +59,37 @@ int main()
 			cin >> prontuario;
 			strcpy(prontuario, strupr(prontuario));
 			
-			while (n < strlen(nome)){
-				if (nome[n] == ' '){
-					nome[n] = '_';
-				}
-			n++;
-			}
+			gerar_save(nome, prontuario, save);
 			
-			strcpy(save, "RESULTADO_");
-			auxstr = strlen(nome);
-			strncat(save, nome, auxstr);
-			strcat(save, "_");
-			auxstr = strlen(prontuario);
-			strncat(save, prontuario, auxstr);
-			strcat(save, ".txt");
-			
-			arq = fopen (save ,"w");
+			do{
+				system("cls");
+				printf("\n=======================================================");
+				printf("\nseu nome\t: %s\nseu prontuario\t: %s\nseu arquivo\t: %s", nome, prontuario, save);
+				printf("\n=======================================================\n");
+				printf("Gostaria de salvar o seus dados : 1-sim || 2-não -> "); fflush(stdin); scanf("%d", &bi);
+				switch(bi){
+					case 1:
+						arq = fopen (save, "w");
+						n++;
+						break;
+					case 2:
+						n++;
+						break;
+					default:
+						printf("erro na escclha de opção!\n"); getch();
+						break;		
+				}		
+			}while(n<1);
 			
 			if (arq == NULL){
-				cout << "erro na criacao do arquivo!";	getch();
+				cout << "erro na criacao do arquivo!\n";	getch();
 			}
 			else {
-				cout << "arquivo criado com sucesso!";	getch();
+				cout << "arquivo criado com sucesso!\n";	getch();
 				i++;
+				test();
 			}
 			fclose(arq);
-			
 		}
 	}
 
@@ -119,7 +129,6 @@ int main()
 							break;
 					}
 				}
-
 				i=1;
 				break;
 			
@@ -163,14 +172,34 @@ void menu(){
 }
 
 ///////////		cadastro do usuario || senha de acesso	///////////
-//int cadaster_comp(char *nome){ 
-// 	char password[20];
-// 	
-// 	st
-// 	if(strcmp(nome, password) == 0){
-// 		
-//}
-//}
+void comp(char *str, int *n){
+	char pass[20], y[20];
+	strcpy(pass, "MASTER");
+	strcpy(y, str);
+	printf("%S", y);
+	*n = strcmp(y, pass);
+}
+
+void gerar_save(char *n, char *p, char *s){
+	int auxstr, i;
+	
+	while (i < strlen(n)){
+				if (n[i] == ' '){
+					n[i] = '_';
+				}
+			i++;
+			}
+			strcpy(s, "RESULTADO_");
+			auxstr = strlen(n);
+			strncat(s, n, auxstr);
+			strcat(s, "_");
+			auxstr = strlen(p);
+			strncat(s, p, auxstr);
+			strcat(s, ".txt");
+
+}
+
+
 ///////////		cadastro do questionário 			///////////
 void cadaster_quest(){
 	
@@ -318,7 +347,7 @@ void test(){
 			printf("[2] -> A proxima a menos descreve\n");
 			printf("[1] -> A que menos te descreve\n\n");
 			
-			printf("%d. %s:\n", quest[i].nroFrase+1, quest[i].frase);
+			printf("%d. %s:\n", quest[i].nroFrase, quest[i].frase);
 			printf("a) %s\n", quest[i].item_1);
 			printf("b) %s\n", quest[i].item_2);
 			printf("c) %s\n", quest[i].item_3);

@@ -4,7 +4,7 @@
 #include <conio.h>
 #include <locale.h>
 
-#define QTD 2
+#define QTD 5
 
 typedef struct{
 	int nroFrase, cines, audi, visu, digi;
@@ -16,14 +16,14 @@ int main(){
 	
 	questionario quest[QTD];
 	FILE *arq;
-	int i, ascii, aux=0;
+	int i, ascii, aux;
 	
 	arq = fopen("TESTE_SISTEMA_REPRESENTACIONAL.DAT", "r");
 	
 	fread(quest, sizeof(questionario), QTD, arq);
 	
 	for(i=0; i<QTD ; i++){
-
+		aux=0;
 		do{
 			ascii=97;
 			
@@ -34,15 +34,17 @@ int main(){
 			printf("[2] -> A proxima a menos descreve\n");
 			printf("[1] -> A que menos te descreve\n\n");
 			
-			printf("%d. %s:\n", quest[i].nroFrase+1, quest[i].frase);
+			if(aux==1){
+				printf("\n\nerro na leitura do teste!! digite valores entre 4 e 1 que sejam diferentes.\n\n");
+				aux=0;
+			}
+			
+			printf("%d. %s:\n", quest[i].nroFrase, quest[i].frase);
 			printf("a) %s\n", quest[i].item_1);
 			printf("b) %s\n", quest[i].item_2);
 			printf("c) %s\n", quest[i].item_3);
 			printf("d) %s\n", quest[i].item_4);
-			if(aux==1){
-				printf("erro na leitura do teste!! digite valores entre 4 e 1 que sejam diferentes.\n");
-				aux=0;
-			}
+			
 			printf("[%c] -> ", ascii ); fflush(stdin); scanf("%d", &quest[i].cines); ascii++;
 			printf("[%c] -> ", ascii ); fflush(stdin); scanf("%d", &quest[i].audi); ascii++;
 			printf("[%c] -> ", ascii ); fflush(stdin); scanf("%d", &quest[i].visu); ascii++;
@@ -56,6 +58,8 @@ int main(){
 				aux++;
 			}else if(quest[i].cines!=quest[i].audi && quest[i].cines!=quest[i].visu && quest[i].cines!=quest[i].digi && quest[i].audi!=quest[i].visu && quest[i].audi!=quest[i].digi && quest[i].visu!=quest[i].digi){
 				aux=2;
+			} else{
+				aux++;
 			}
 		}while(aux<2);	
 	}
