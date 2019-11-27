@@ -3,7 +3,7 @@
 #include <stdlib.h>
 #include <conio.h>
 
-#define QTD 2
+#define QTD 5
 
 typedef struct{
 	int nroFrase, cines, audi, visu, digi;
@@ -21,6 +21,7 @@ void view_quest(){
 		printf("Erro na abertura de arquivo!!");
 	} else {
 		printf("Arquivo aberto com sucesso!!\n");
+		
 		fread(quest, sizeof(questionario), QTD, arq);
 		for(i=0 ; i<QTD ; i++){
 			printf("%d %s %d %s %d %s %d %s %d %s \n", quest[i].nroFrase, quest[i].frase, quest[i].cines, quest[i].item_1, quest[i].audi, quest[i].item_2, quest[i].visu, quest[i].item_3, quest[i].digi, quest[i].item_4);
@@ -31,7 +32,7 @@ void view_quest(){
 }
 
 int main(){
-	view_quest();
+	view_quest(); getch();
 }
 
 
