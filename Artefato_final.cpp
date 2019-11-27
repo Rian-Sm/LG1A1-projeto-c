@@ -229,7 +229,7 @@ void cadaster_quest(){
 		for(i=0 ; i<QTD ; i++ ){
             memset(&quest, 0, sizeof(questionario));
             
-			quest.nroFrase=i; quest.cines=0; quest.audi=0; quest.visu=0; quest.digi=0;
+			quest.nroFrase=i+1; quest.cines=0; quest.audi=0; quest.visu=0; quest.digi=0;
 		
 		    printf("\ndigite a sua digite a pergunta -> "); fflush(stdin); gets(quest.frase);
 		    printf("\ndigite a alternativa 1 -> ");fflush(stdin); gets(quest.item_1);
@@ -437,6 +437,8 @@ void test(char *str, char *s){
 	fclose(arq);
 	fclose(arq_w);
 	memset(&quest, 0, sizeof(questionario));
+	
+	printf("\nquestionario respondido com sucesso!!\nsua resposta esta no arquivo \"%s\"", s); getch(); 
 }
 
 ///////////		referencial teorico			     			////////////
