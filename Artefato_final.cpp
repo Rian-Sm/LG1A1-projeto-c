@@ -30,7 +30,6 @@ void info();
 void comp(char *str, int *n);
 void gerar_save(char *n, char *p, char *s);
 void msg_erro();
-void inf(char *s);
 //////////		 função principal 		////////////////
 int main()
 {
@@ -455,6 +454,3 @@ void msg_erro(){
 	printf("Opição invalida, tente novamente"); getch();
 }
 
-void inf(char *s){
-	system(s); getch();
-}
