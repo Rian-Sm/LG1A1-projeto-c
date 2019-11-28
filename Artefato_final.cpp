@@ -30,6 +30,7 @@ void info();
 void comp(char *str, int *n);
 void gerar_save(char *n, char *p, char *s);
 void msg_erro();
+void inf(char *s);
 //////////		 função principal 		////////////////
 int main()
 {
@@ -56,6 +57,7 @@ int main()
 			strcpy(prontuario, "");
 			gerar_save(nome, prontuario, save);
 			arq = fopen (save, "w");
+			fclose(arq);
 			i++;
 		}else{
 			
@@ -91,9 +93,10 @@ int main()
 			else {
 				cout << "arquivo criado com sucesso!\n";	getch();
 				i++;
+				fclose(arq);
 				test(nome, save);
 			}
-			fclose(arq);
+		
 		}
 	}
 //------------	inicio do switch do menu	-------------------
@@ -229,13 +232,13 @@ void cadaster_quest(){
 		for(i=0 ; i<QTD ; i++ ){
             memset(&quest, 0, sizeof(questionario));
             
-			quest.nroFrase=i; quest.cines=0; quest.audi=0; quest.visu=0; quest.digi=0;
+			quest.nroFrase=i+1; quest.cines=0; quest.audi=0; quest.visu=0; quest.digi=0;
 		
 		    printf("\ndigite a sua digite a pergunta -> "); fflush(stdin); gets(quest.frase);
-		    printf("\ndigite a alternativa 1 -> ");fflush(stdin); gets(quest.item_1);
-		    printf("\ndigite a alternativa 2 -> ");fflush(stdin); gets(quest.item_2);
-		    printf("\ndigite a alternativa 3 -> ");fflush(stdin); gets(quest.item_3);
-		    printf("\ndigite a alternativa 4 -> ");fflush(stdin); gets(quest.item_4);
+		    printf("\ndigite a alternativa 1 (cinestesico)-> ");fflush(stdin); gets(quest.item_1);
+		    printf("\ndigite a alternativa 2 (auditivo)-> ");fflush(stdin); gets(quest.item_2);
+		    printf("\ndigite a alternativa 3 (visual)-> ");fflush(stdin); gets(quest.item_3);
+		    printf("\ndigite a alternativa 4 (digital)-> ");fflush(stdin); gets(quest.item_4);
 		    
 		    fwrite(&quest, sizeof(questionario), 1, arq);
 	    }
@@ -404,9 +407,9 @@ void test(char *str, char *s){
 		soma_v += quest[i].visu;
 		soma_d += quest[i].digi;
 	}
-	fprintf(arq_w,"============================================\t\tPERFIL REPRESENTACIONAL DE %-20s================================================", str);
+	fprintf(arq_w,"============================================\t\t\tPERFIL REPRESENTACIONAL DE %-28s ================================================", str);
 	fprintf(arq_w,"\n %d%c - CINESTÉSICO\t\t%d%c - AUDITIVO\t\t%d%c - VISUAL\t\t%d%c - DIGITAL\t\t", soma_c*2, 37, soma_a*2, 37, soma_v*2, 37, soma_d*2,37);
-	fprintf(arq_w,"\n=======================================================================================================================================================\n", str);
+	fprintf(arq_w,"\n========================================================================================================================================================================\n");
 	
 	fprintf(arq_w,"\nAlgumas pessoas captam melhor as mensagens do mundo exterior através da audição, são as pessoas chamadas auditivas.");
 	fprintf(arq_w,"\nOutras pessoas sentem necessidade de perguntar muito, necessitam de muitas informações e fatos. Estas são as digitais.");
@@ -414,29 +417,31 @@ void test(char *str, char *s){
 	fprintf(arq_w,"\nJá as pessoas visuais aprendem melhor quando se valendo da visão.\n");
 	
 	if(soma_c>soma_a && soma_c>soma_v && soma_c>soma_d){
-		fprintf(arq_w,"\n=======================================================================================================================================================", str);
-		fprintf(arq_w,"\nSeu perfil é CINESTÉSICO\n");
-		fprintf(arq_w,"\n=======================================================================================================================================================", str);
+		fprintf(arq_w,"\n========================================================================================================================================================================");
+		fprintf(arq_w,"\n\nSeu perfil é CINESTÉSICO\n");
+		fprintf(arq_w,"\n========================================================================================================================================================================");
 	} else if(soma_a>soma_c && soma_a>soma_v && soma_a>soma_d){
-		fprintf(arq_w,"\n=======================================================================================================================================================", str);
-		fprintf(arq_w,"Seu perfil é AUDITIVO\n");
-		fprintf(arq_w,"\n=======================================================================================================================================================", str);
+		fprintf(arq_w,"\n========================================================================================================================================================================");
+		fprintf(arq_w,"\n\nSeu perfil é AUDITIVO\n");
+		fprintf(arq_w,"\n========================================================================================================================================================================");
 	} else if(soma_v>soma_c && soma_v>soma_a && soma_v>soma_d){
-		fprintf(arq_w,"\n=======================================================================================================================================================", str);
-		fprintf(arq_w,"\nSeu perfil é VISUAL\n");
-		fprintf(arq_w,"\n=======================================================================================================================================================", str);
+		fprintf(arq_w,"\n========================================================================================================================================================================");
+		fprintf(arq_w,"\n\nSeu perfil é VISUAL\n");
+		fprintf(arq_w,"\n========================================================================================================================================================================");
 	} else if(soma_d>soma_c && soma_d>soma_a && soma_d>soma_v){
-		fprintf(arq_w,"\n=======================================================================================================================================================", str);
-		fprintf(arq_w,"\nSeu perfil é DIGITAL\n");
-		fprintf(arq_w,"\n=======================================================================================================================================================", str);
+		fprintf(arq_w,"\n========================================================================================================================================================================");
+		fprintf(arq_w,"\n\nSeu perfil é DIGITAL\n");
+		fprintf(arq_w,"\n========================================================================================================================================================================");
 	} else{
-		fprintf(arq_w,"\n=======================================================================================================================================================", str);
-		fprintf(arq_w,"\nSeu perfil é INDESCRITÍVEL!!!!");
-		fprintf(arq_w,"\n=======================================================================================================================================================", str);
+		fprintf(arq_w,"\n========================================================================================================================================================================");
+		fprintf(arq_w,"\n\nSeu perfil é INDESCRITÍVEL!!!!");
+		fprintf(arq_w,"\n========================================================================================================================================================================");
 	}
 	fclose(arq);
 	fclose(arq_w);
 	memset(&quest, 0, sizeof(questionario));
+	printf("\nquestionario respondido com sucesso!!\nsua resposta esta no arquivo \"%s\"", s); 
+	system(s);
 }
 
 ///////////		referencial teorico			     			////////////
@@ -450,3 +455,6 @@ void msg_erro(){
 	printf("Opição invalida, tente novamente"); getch();
 }
 
+void inf(char *s){
+	system(s); getch();
+}
